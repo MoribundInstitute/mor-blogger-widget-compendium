@@ -1,0 +1,9 @@
+{
+  "name": "Pageview Stats",
+  "type": "Stats",
+  "group": "gadgets",
+  "description": "Blogger pageview counter with an optional sparkline. Toggle the sparkline and counter style, and set the time range.",
+  "author": "MoribundInstitute",
+  "version": "1.0.0",
+  "tags": ["stats", "analytics", "sidebar"]
+}

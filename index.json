@@ -15,6 +15,21 @@
     "xml": "https://cdn.jsdelivr.net/gh/MoribundInstitute/mor-blogger-widget-compendium@main/widgets/translate/widget.xml"
   },
   {
+    "name": "Pageview Stats",
+    "type": "Stats",
+    "group": "gadgets",
+    "description": "Blogger pageview counter with an optional sparkline. Toggle the sparkline and counter style, and set the time range.",
+    "author": "MoribundInstitute",
+    "version": "1.0.0",
+    "tags": [
+      "stats",
+      "analytics",
+      "sidebar"
+    ],
+    "slug": "stats",
+    "xml": "https://cdn.jsdelivr.net/gh/MoribundInstitute/mor-blogger-widget-compendium@main/widgets/stats/widget.xml"
+  },
+  {
     "name": "Wikipedia Search",
     "type": "Wikipedia",
     "group": "gadgets",
