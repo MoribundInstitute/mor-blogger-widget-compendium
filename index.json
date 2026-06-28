@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Google Translate",
+    "type": "Translate",
+    "group": "gadgets",
+    "description": "Drop-in Google Translate gadget. Choose a vertical, horizontal, or simple inline layout.",
+    "author": "MoribundInstitute",
+    "version": "1.0.0",
+    "tags": [
+      "translate",
+      "i18n",
+      "sidebar"
+    ],
+    "slug": "translate",
+    "xml": "https://cdn.jsdelivr.net/gh/MoribundInstitute/mor-blogger-widget-compendium@main/widgets/translate/widget.xml"
+  },
+  {
+    "name": "Wikipedia Search",
+    "type": "Wikipedia",
+    "group": "gadgets",
+    "description": "A Wikipedia search box for your sidebar. Point it at any language or fandom wiki via the editable Wiki base URL.",
+    "author": "MoribundInstitute",
+    "version": "1.0.0",
+    "tags": [
+      "search",
+      "sidebar",
+      "reference"
+    ],
+    "slug": "wikipedia",
+    "xml": "https://cdn.jsdelivr.net/gh/MoribundInstitute/mor-blogger-widget-compendium@main/widgets/wikipedia/widget.xml"
+  }
+]

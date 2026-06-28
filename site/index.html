@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#0d1117"/>
+<title>The Mor Blogger Widget Compendium</title>
+<style>
+  :root {
+    --gh-bg: #0d1117; --gh-panel: #161b22; --gh-border: #30363d;
+    --gh-text: #c9d1d9; --gh-muted: #8b949e; --gh-link: #58a6ff;
+    --fluid-glow: linear-gradient(110deg, #58a6ff, #a371f7, #f778ba);
+    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background-color: var(--gh-bg);
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: var(--gh-text); font-family: var(--font-ui); line-height: 1.6;
+    display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+    position: relative; overflow-x: hidden;
+  }
+  body::before {
+    content: ""; position: absolute; top: -10%; left: 10%; width: 80%; height: 50vh;
+    background: var(--fluid-glow); filter: blur(140px); opacity: 0.15; z-index: -1;
+    animation: ambientPulse 12s ease-in-out infinite alternate;
+  }
+  @keyframes ambientPulse {
+    0% { transform: scale(1) translate(0,0); opacity: 0.1; }
+    100% { transform: scale(1.05) translate(2%,2%); opacity: 0.2; }
+  }
+  .mor-global-nav {
+    width: 100%; background: rgba(13,17,23,0.80); backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--gh-border);
+    position: fixed; top: 0; left: 0; z-index: 1000; display: flex; justify-content: center;
+  }
+  .mor-nav-container {
+    max-width: 1150px; width: 100%; height: 60px; padding: 0 20px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .mor-nav-brand {
+    font-family: var(--font-mono); font-weight: 700; color: var(--gh-text);
+    text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; gap: 10px;
+  }
+  .mor-nav-links { display: flex; gap: 24px; align-items: center; }
+  .mor-nav-link { color: var(--gh-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .mor-nav-link:hover { color: var(--gh-text); }
+  .mor-nav-button {
+    background: var(--fluid-glow); color: #fff; text-decoration: none; padding: 6px 16px;
+    border-radius: 20px; font-size: 0.85rem; font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s; border: none;
+  }
+  .mor-nav-button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(163,113,247,0.3); }
+  @media (max-width: 600px) { .mor-nav-link { display: none; } }
+  .compendium-header { text-align: center; margin-top: 120px; margin-bottom: 60px; max-width: 800px; padding: 0 20px; z-index: 1; }
+  .repo-path {
+    font-family: var(--font-mono); color: var(--gh-link); font-size: 0.95rem; margin-bottom: 20px;
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px;
+    background: rgba(56,139,253,0.1); border: 1px solid rgba(56,139,253,0.2); border-radius: 20px;
+  }
+  .compendium-header h1 {
+    font-size: 3.5rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin: 0 0 16px;
+    background: var(--fluid-glow); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .compendium-header p { color: var(--gh-muted); font-size: 1.15rem; margin: 0; }
+  .layout-container { max-width: 1150px; width: 100%; margin: 0 auto; padding: 0 20px; z-index: 1; }
+  .mor-gallery-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px; width: 100%; padding: 0 0 80px 0;
+  }
+  .mor-preset-card {
+    background: var(--gh-panel); border-radius: 8px; border: 1px solid var(--gh-border);
+    transition: all 0.3s cubic-bezier(0.25,0.8,0.25,1);
+    display: flex; flex-direction: column; position: relative;
+  }
+  .mor-preset-card::after {
+    content: ""; position: absolute; inset: -1px; border-radius: 8px;
+    background: var(--fluid-glow); z-index: -1; opacity: 0; transition: opacity 0.3s;
+  }
+  .mor-preset-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 16px 40px rgba(163,113,247,0.15); border-color: transparent; }
+  .mor-preset-card:hover::after { opacity: 1; }
+  .card-gh-header {
+    padding: 12px 16px; font-family: var(--font-mono); font-size: 13px; color: var(--gh-muted);
+    display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--gh-border);
+    border-radius: 8px 8px 0 0;
+  }
+  .card-gh-footer {
+    padding: 16px; border-radius: 0 0 8px 8px; border-top: 1px solid var(--gh-border);
+    display: flex; justify-content: flex-end;
+  }
+  .mor-copy-btn {
+    background: #21262d; color: var(--gh-text); border: 1px solid rgba(240,246,252,0.1);
+    padding: 6px 14px; font-size: 14px; font-weight: 500; border-radius: 6px; cursor: pointer;
+    transition: 0.2s; font-family: var(--font-ui);
+  }
+  .mor-copy-btn:hover { background: #30363d; border-color: #8b949e; }
+  .widget-type-badge {
+    margin-left: auto; font-family: var(--font-mono); font-size: 11px; color: var(--gh-link);
+    background: rgba(56,139,253,0.1); border: 1px solid rgba(56,139,253,0.2); padding: 2px 8px; border-radius: 12px;
+  }
+  .widget-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+  .widget-tag {
+    font-family: var(--font-mono); font-size: 12px; color: var(--gh-text);
+    background: rgba(163,113,247,0.05); border: 1px solid rgba(163,113,247,0.2); padding: 2px 10px; border-radius: 20px;
+  }
+  .compendium-footer {
+    width: 100%; border-top: 1px solid var(--gh-border); background: var(--gh-panel);
+    padding: 60px 20px; margin-top: 100px; color: var(--gh-muted);
+  }
+  .footer-grid { max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+  .footer-col h4 { color: var(--gh-text); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; margin: 0 0 20px; }
+  .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a { color: var(--gh-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: rgba(163,113,247,1); }
+</style>
+</head>
+<body>
+<nav class="mor-global-nav">
+  <div class="mor-nav-container">
+    <a class="mor-nav-brand" href="#">🧩 Moribund Widgets</a>
+    <div class="mor-nav-links">
+      <a class="mor-nav-link" href="https://morbloggerpresetcompendium.blogspot.com/">Presets</a>
+      <a class="mor-nav-link" href="https://morxml.blogspot.com/">Template Modules</a>
+      <a class="mor-nav-link" href="https://github.com/MoribundInstitute/mor-blogger-widget-compendium" target="_blank">GitHub</a>
+      <a class="mor-nav-button" href="https://github.com/MoribundInstitute/mor_blogger_theme_editor" target="_blank">Blogger Builder App</a>
+    </div>
+  </div>
+</nav>
+
+<div class="compendium-header">
+  <div class="repo-path">🧩 MoribundInstitute / mor-blogger-widget-compendium</div>
+  <h1>The Mor Blogger Widget Compendium</h1>
+  <p>Drop-in Blogger gadgets — copy the XML straight into the MorBlogger Theme Editor.</p>
+</div>
+
+<div class="layout-container">
+  <mor-widget-gallery data-index="https://cdn.jsdelivr.net/gh/MoribundInstitute/mor-blogger-widget-compendium@main/index.json"></mor-widget-gallery>
+</div>
+
+<footer class="compendium-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>The MorBlogger Ecosystem</h4>
+      <ul>
+        <li><a href="https://github.com/MoribundInstitute/mor_blogger_theme_editor" target="_blank">Blogger Theme Editor (Rust)</a></li>
+        <li><a href="https://github.com/MoribundInstitute/mor-blogger-theme-preset-compendium" target="_blank">Theme/Preset Compendium</a></li>
+        <li><a href="https://github.com/MoribundInstitute/mor-blogger-widget-compendium" target="_blank">Widget Compendium</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contribute</h4>
+      <ul>
+        <li><a href="https://github.com/MoribundInstitute/mor-blogger-widget-compendium/blob/main/CONTRIBUTING.md" target="_blank">Add a widget</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+//<![CDATA[
+class MorWidgetGallery extends HTMLElement {
+  async connectedCallback() {
+    const src = this.getAttribute("data-index") || "../index.json";
+    this.innerHTML = `<div class="mor-gallery-grid"></div>`;
+    const grid = this.querySelector(".mor-gallery-grid");
+    let widgets;
+    try {
+      const res = await fetch(src, { cache: "no-cache" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      widgets = await res.json();
+    } catch (e) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem;color:#f85149;font-family:var(--font-mono);">[ Could not load index.json — ${e.message} ]</div>`;
+      return;
+    }
+    if (!Array.isArray(widgets) || !widgets.length) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--gh-muted);font-family:var(--font-mono);">[ No widgets published yet. ]</div>`;
+      return;
+    }
+    widgets.forEach((w) => this.card(grid, w));
+  }
+
+  card(grid, w) {
+    const name = w.name || w.slug || "Widget";
+    const type = w.type || "Widget";
+    const desc = w.description || "";
+    const tags = Array.isArray(w.tags) ? w.tags : [];
+    const xmlUrl = w.xml || "#";
+    const shot = w.screenshot;
+    const el = document.createElement("div");
+    el.className = "mor-preset-card";
+    const thumb = shot
+      ? `<div style="height:160px;background:url('${shot}') top center/cover;border-bottom:1px solid var(--gh-border);"></div>`
+      : "";
+    const chips = tags.map((t) => `<span class="widget-tag">${t}</span>`).join("");
+    el.innerHTML = `
+      <div class="card-gh-header">🧩 ${name}<span class="widget-type-badge">${type}</span></div>
+      ${thumb}
+      <div style="padding:24px;display:flex;flex-direction:column;gap:14px;flex-grow:1;">
+        <p style="margin:0;color:var(--gh-text);font-size:0.95rem;line-height:1.5;">${desc}</p>
+        <div class="widget-tags">${chips}</div>
+      </div>
+      <div class="card-gh-footer"><button class="mor-copy-btn" data-url="${xmlUrl}">Copy Widget XML</button></div>`;
+    const btn = el.querySelector(".mor-copy-btn");
+    btn.addEventListener("click", async () => {
+      const orig = btn.innerText;
+      btn.innerText = "… fetching";
+      try {
+        const src = await (await fetch(xmlUrl)).text();
+        await navigator.clipboard.writeText(src);
+        btn.innerHTML = "✔ Copied XML!";
+      } catch {
+        await navigator.clipboard.writeText(xmlUrl);
+        btn.innerHTML = "✔ Copied URL";
+      }
+      btn.style.borderColor = "#3fb950";
+      btn.style.color = "#3fb950";
+      setTimeout(() => { btn.innerText = orig; btn.style.borderColor = ""; btn.style.color = ""; }, 2000);
+    });
+    grid.appendChild(el);
+  }
+}
+customElements.define("mor-widget-gallery", MorWidgetGallery);
+//]]>
+</script>
+</body>
+</html>

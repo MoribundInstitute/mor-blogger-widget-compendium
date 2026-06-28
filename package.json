@@ -1,0 +1,11 @@
+{
+  "name": "mor-blogger-widget-compendium",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Community library of installable Blogger widgets for the MorBlogger Theme Editor.",
+  "scripts": {
+    "build": "node scripts/build-index.mjs"
+  },
+  "license": "MIT"
+}

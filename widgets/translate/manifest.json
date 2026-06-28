@@ -1,0 +1,9 @@
+{
+  "name": "Google Translate",
+  "type": "Translate",
+  "group": "gadgets",
+  "description": "Drop-in Google Translate gadget. Choose a vertical, horizontal, or simple inline layout.",
+  "author": "MoribundInstitute",
+  "version": "1.0.0",
+  "tags": ["translate", "i18n", "sidebar"]
+}

@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Validates every widget and regenerates index.json. Fails the PR on any
+      # malformed manifest or blueprint.
+      - name: Build & validate index
+        run: node scripts/build-index.mjs
+
+      # On merge to main, commit the rebuilt index.json if it changed.
+      - name: Commit index.json
+        if: github.event_name == 'push'
+        run: |
+          if ! git diff --quiet -- index.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add index.json
+            git commit -m "chore: rebuild index.json"
+            git push
+          fi
+
+      # Bust the jsDelivr cache so consumers see the new index immediately.
+      - name: Purge jsDelivr cache
+        if: github.event_name == 'push'
+        run: |
+          curl -s "https://purge.jsdelivr.net/gh/MoribundInstitute/mor-blogger-widget-compendium@main/index.json" || true

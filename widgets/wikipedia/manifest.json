@@ -1,0 +1,9 @@
+{
+  "name": "Wikipedia Search",
+  "type": "Wikipedia",
+  "group": "gadgets",
+  "description": "A Wikipedia search box for your sidebar. Point it at any language or fandom wiki via the editable Wiki base URL.",
+  "author": "MoribundInstitute",
+  "version": "1.0.0",
+  "tags": ["search", "sidebar", "reference"]
+}
